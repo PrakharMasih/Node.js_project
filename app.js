@@ -10,6 +10,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/practice');
 
 const productRoute = require('./api/Routes/product.js');
 const orderRoute = require('./api/Routes/orders.js');
+const userRoute = require('./api/Routes/users.js');
 
 app.use('/uploads', express.static('uploads'))
 app.use(morgan('dev'));     //REQUEST_LOGGER- dev :method :url :status :response-time ms - :res[content-length] 
@@ -26,9 +27,10 @@ app.use(cors());            //Cross-Origin Resource Sharing in Node.js is a mech
 
 app.use('/products', productRoute);
 app.use('/orders', orderRoute);
+app.use('/users', userRoute);
 
 app.use((req, res, next) =>{
-    const error = new Error('Not found');
+    const error = new Error('Page Not found');
     error.status = 404;
     next(error);
 });
